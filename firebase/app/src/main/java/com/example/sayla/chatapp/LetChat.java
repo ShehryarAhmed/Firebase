@@ -12,11 +12,11 @@ import android.widget.Button;
  */
 public class LetChat extends AppCompatActivity{
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.letchat);
 
-        Button letchat = (Button) findViewById(R.id.addButton);
+        Button letchat = (Button) findViewById(R.id.letchat);
 
         letchat.setOnClickListener(new View.OnClickListener() {
             @Override
