@@ -5,22 +5,22 @@ package com.example.sayla.chatapp;
  */
 public class User {
 
-    private String Message;
-    private String NodeKey;
+    private String name;
+    private String email;
 
 
     public User(){}
 
-    public User(String message, String nodeKey) {
-        Message = message;
-        NodeKey = nodeKey;
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
     }
 
-    public String getMessage() {
-        return Message;
+    public String getName() {
+        return name;
     }
 
-    public String getNodeKey() {
-        return NodeKey;
+    public String getEmail() {
+        return email;
     }
 }

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,9 +41,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mFirebaseAuth = FirebaseAuth.getInstance();
 
-        mEmail = (EditText) findViewById(R.id.email);
+        mEmail = (EditText) findViewById(R.id.Email);
 
-        mPassword = (EditText) findViewById(R.id.password);
+        mPassword = (EditText) findViewById(R.id.Password);
 
         mSignUp = (Button) findViewById(R.id.sign_up);
 
@@ -53,7 +54,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mLogin.setOnClickListener(this);
 
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mFirebaseAuth.
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     @Override
@@ -85,18 +97,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(task.isSuccessful()){
              onAuthsucess(task.getResult().getUser());
             }
+                else {
+                Toast.makeText(MainActivity.this, "Sign in Failed", Toast.LENGTH_SHORT).show();
+            }
             }
 
         });
     }
 
+
     private void onAuthsucess(FirebaseUser user){
         String Username = usernameFromEmail(user.getEmail());
-        writeNewUser();
+        writeNewUser(user.getUid(),Username,user.getEmail());
+        startActivity(new Intent(this,Messenger.class));
+        finish();
     }
 
     private void writeNewUser(String userId,String name, String email){
         User muser = new User(name,email);
+        mDatabaseReference.child("total_user").child("id : "+ userId).setValue(muser);
+
     }
 
     private String usernameFromEmail(String email){
@@ -149,7 +169,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void signUp() {
+        if(!validForm()){
+            return;
+        }
+        showDailogbox();
 
+
+        String getEmail = mEmail.getText().toString().trim();
+        String getPassword = mPassword.getText().toString().trim();
+
+        mFirebaseAuth.createUserWithEmailAndPassword(getEmail,getPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                hideProgressdialog();
+                if(task.isSuccessful()){
+                    onAuthsucess(task.getResult().getUser());
+                }
+                else {
+                    Toast.makeText(MainActivity.this, "sing uP Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
 }
