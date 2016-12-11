@@ -45,10 +45,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mPassword = (EditText) findViewById(R.id.Password);
 
-        mSignUp = (Button) findViewById(R.id.sign_up);
+        mSignUp = (Button) findViewById(R.id.msign_up);
 
 
-        mLogin = (Button) findViewById(R.id.login);
+        mLogin = (Button) findViewById(R.id.mlogin);
 
         mSignUp.setOnClickListener(this);
 
@@ -59,27 +59,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        mFirebaseAuth.
 
+        if(mFirebaseAuth.getCurrentUser() != null){
+            onAuthsucess(mFirebaseAuth.getCurrentUser());
+        }
     }
+
 
     @Override
     protected void onStop() {
         super.onStop();
     }
-
     @Override
     public void onClick(View v) {
         int i = v.getId();
 
-        if (i == R.id.login) {
+        if (i == R.id.mlogin) {
             login();
         }
-        if (i == R.id.sign_up) {
+       else if (i == R.id.msign_up) {
             signUp();
         }
-
-
     }
 
     private void login() {
@@ -173,10 +173,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         showDailogbox();
-
-
-        String getEmail = mEmail.getText().toString().trim();
-        String getPassword = mPassword.getText().toString().trim();
+        String getEmail = mEmail.getText().toString();
+        String getPassword = mPassword.getText().toString();
 
         mFirebaseAuth.createUserWithEmailAndPassword(getEmail,getPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -190,6 +188,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
+
+    }
+    public String mgetUid(){
+        return  FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
 }
