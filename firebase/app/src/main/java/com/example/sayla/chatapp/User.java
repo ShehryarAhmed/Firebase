@@ -3,15 +3,15 @@ package com.example.sayla.chatapp;
 /**
  * Created by sayla on 04/12/2016.
  */
-public class MessageModel  {
+public class User {
 
     private String Message;
     private String NodeKey;
 
 
-    public MessageModel(){}
+    public User(){}
 
-    public MessageModel(String message, String nodeKey) {
+    public User(String message, String nodeKey) {
         Message = message;
         NodeKey = nodeKey;
     }

@@ -2,6 +2,7 @@ package com.example.sayla.chatapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +25,10 @@ public class Messenger extends AppCompatActivity{
 
     FirebaseDatabase mdatabase;
 
+    FirebaseAuth mFirebaseAuth;
+
+    FirebaseAuth.AuthStateListener mAuthStateListener;
+
     EditText mMessage;
     private DatabaseReference messagesDB;
 
@@ -30,6 +36,8 @@ public class Messenger extends AppCompatActivity{
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.messenger);
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
 
         final Button mMessagesender = (Button) findViewById(R.id.sendmessage);
 
@@ -77,12 +85,23 @@ public class Messenger extends AppCompatActivity{
             }
         });
 
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+
+
+            }
+        };
         databaseReference.setValue("Hello World");
 
     }
+
 
     private void writenewuser(String message){
         messagesDB.child("abc").push().setValue(message);
 //        mdatabase.getReference().push().setValue(message);
     }
+
+
 }
