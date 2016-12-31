@@ -7,24 +7,33 @@
     tools:context="com.example.sayla.chatapp.MainActivity">
 
     <EditText
-        android:id="@+id/firstname"
-        android:layout_width="wrap_content"
+        android:id="@+id/Email"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="firstname" />
+        android:hint="Email"
+        />
 
 
     <EditText
-        android:id="@+id/lastname"
-        android:layout_width="wrap_content"
+        android:id="@+id/Password"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:hint="password" />
 
     <Button
-        android:id="@+id/signin"
+    android:id="@+id/mlogin"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:text="Login"
+    />
+
+    <Button
+        android:id="@+id/msign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="SignIn"
+        android:text="Sign Up"
         />
 </LinearLayout>
